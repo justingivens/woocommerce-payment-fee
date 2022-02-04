@@ -1,5 +1,5 @@
 <?php
-**
+/**
  * WooCommerce Payment Fee
  *
  * @package           WooCommercePaymentFee
@@ -11,7 +11,7 @@
  * Plugin Name:       WooCommerce Payment Fee
  * Plugin URI:        https://github.com/justingivens/woocommerce-payment-fee
  * Description:       Simple plugin for WooCommerce to allow a site to add a convenience fee to cover the cost of the online payment platforms like square, stripe, etc..
- * Version:           0.0.2
+ * Version:           0.0.3
  * Requires at least: 5.5
  * Requires PHP:      7.4
  * Author:            Justin Givens
@@ -46,8 +46,11 @@ if ( ! class_exists( 'Fee' ) ) {
 	 */
 	class Fee {
 
-		/** @var float Platform Fee */
-		private $fee = 0.029; //2.9% fee!
+		/** @var float Payment Platform Percentage Fee */
+		private $percentage_fee = 0.029; //2.9% fee!
+
+		/** @var float Payment Platform Fixed Fee */
+		private $fixed_fee = 0.30; // $0.30
 
 		/** @var null|Fee */
 		protected static $_instance = null;
@@ -80,7 +83,8 @@ if ( ! class_exists( 'Fee' ) ) {
 					return;
 				}
 
-				$surcharge = ( ( $woocommerce->cart->cart_contents_total ) * $this->fee ) + 0.30;
+				$surcharge = round( ( ( $woocommerce->cart->cart_contents_total + $this->fixed_fee ) / ( 1 - $this->percentage_fee ) ), 2 );
+				$surcharge = $surcharge - $woocommerce->cart->cart_contents_total;
 
 				$woocommerce->cart->add_fee( 'Online Fee', $surcharge );
 
