@@ -11,7 +11,7 @@
  * Plugin Name:       WooCommerce Payment Fee
  * Plugin URI:        https://github.com/justingivens/woocommerce-payment-fee
  * Description:       Simple plugin for WooCommerce to allow a site to add a convenience fee to cover the cost of the online payment platforms like square, stripe, etc..
- * Version:           0.0.3
+ * Version:           0.0.3.1
  * Requires at least: 5.5
  * Requires PHP:      7.2
  * Author:            Justin Givens
