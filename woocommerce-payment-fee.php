@@ -83,8 +83,8 @@ if ( ! class_exists( 'Fee' ) ) {
 					return;
 				}
 
-				$cart_total_after_discounts = $woocommerce->cart->get_cart_contents_total();
-				if( $cart_total_after_discounts === 0 ) {
+				$cart_total_after_discounts = floatval( $woocommerce->cart->get_cart_contents_total() );
+				if( $cart_total_after_discounts === 0.00 ) {
 					return;
 				}
 
@@ -126,3 +126,4 @@ if ( ! class_exists( 'Fee' ) ) {
 
 	fee()->load();
 }
+
